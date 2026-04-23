@@ -96,7 +96,7 @@ var isoDB;
 var stdout_array;
 var readfile_and_run = function (iso_name, blob) {
 	var run_arr = function (arr) {
-		//Module.FS_createDataFile("/", iso_name, arr, true, true);
+		Module.FS_createDataFile("/", iso_name, arr, true, true);
 		stdout_array = arr;
 		Module.setStatus('Running!');
 		pcsx_init("/" + iso_name);
@@ -195,6 +195,12 @@ var main_onmessage = function (event) {
 
 			load_or_fetch(data.iso)
 
+			break;
+		
+		case "loadbuffer":
+			Module.setStatus('Loading...');
+			cout_print("loadbuffer: " + data.name + " (" + data.data.length + " bytes)");
+			readfile_and_run(data.name, new Blob([data.data]));
 			break;
 
 		default:
