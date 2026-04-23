@@ -1,7 +1,9 @@
 CC=emcc
 CFLAGS= -O3 -Wno-unused-result -s WASM=1 \
--D USESDLSOUND  -s USE_ZLIB=1 -I./include -I./libpcsxcore
-LDFLAGS= --llvm-lto 1  
+-D USESDLSOUND  -s USE_ZLIB=1 -I./include -I./libpcsxcore \
+-s EXPORTED_RUNTIME_METHODS="['ccall','cwrap','getValue','setValue','HEAPU8','HEAP16','HEAP32','FS']" \
+-s FORCE_FILESYSTEM=1
+LDFLAGS= --llvm-lto 1 -lidbfs.js
 
 # WORKER
 WORKER_EXPORT="['_main',  '_pcsx_init', '_one_iter', '_get_ptr', '_ls']"
@@ -11,7 +13,7 @@ libpcsxcore/psxdma.o libpcsxcore/disr3000a.o libpcsxcore/spu.o libpcsxcore/sio.o
 libpcsxcore/psxhw.o libpcsxcore/mdec.o libpcsxcore/psxmem.o libpcsxcore/misc.o \
 libpcsxcore/plugins.o libpcsxcore/decode_xa.o libpcsxcore/r3000a.o libpcsxcore/psxinterpreter.o \
 libpcsxcore/gte.o libpcsxcore/psxhle.o  libpcsxcore/psxcommon.o \
-libpcsxcore/cdriso_js.o libpcsxcore/ppf.o   \
+libpcsxcore/cdriso.o libpcsxcore/ppf.o   \
 plugins/dfxvideo/cfg.o   plugins/dfxvideo/fps.o plugins/dfxvideo/key.o \
 plugins/dfxvideo/prim.o  plugins/dfxvideo/zn.o plugins/dfxvideo/draw_null.o  \
 plugins/dfxvideo/gpu.o   plugins/dfxvideo/soft.o \
@@ -43,4 +45,4 @@ pcsx_ww.js: $(UI_OBJS)
 	$(CC) -o $@ $(CFLAGS) $(UI_OBJS) $(LDFLAGS) $(UI_FLAGS)
 
 clean:
-	rm -f *.o */*.o */*/*.o
+	rm -f *.o */*.o */*/*.o *.wasm pcsx_worker.js pcsx_ww.js
