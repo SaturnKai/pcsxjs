@@ -1,16 +1,8 @@
-# jspcsx
-pcsx in a browser
+# PCSXJS (Fork)
 
-Demo:  https://tjwei.github.io/pcsxjs
+A fork of [tjwei/pcsxjs](https://github.com/tjwei/pcsxjs), a PCSX emulator compiled to WebAssembly. The original repository has been modified to support compiling on modern Emscripten versions:
 
-
-Modified pcsx-r compiled with emscripten to wasm
-
-Has sound, most emulation stuffs are in the webworker.
-
-TODO:
-* JIT
-* WebGL filters
-
-
-
+- Added `pcsx.js`, a modular wrapper for the compiled emulator
+- Updates to `Makefile`
+- Updates to `gui/Config.c`
+- Updates to `gui/Linux.h`
