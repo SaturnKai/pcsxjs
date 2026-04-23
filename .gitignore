@@ -54,3 +54,6 @@ dkms.conf
 *.wast
 *.map
 
+# Web Files
+pcsx_worker.js
+pcsx_ww.js
